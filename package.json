@@ -1,0 +1,25 @@
+{
+  "name": "angularjs-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cristiano de Souza Vinhal",
+  "license": "ISC",
+  "devDependencies": {
+    "@uirouter/angularjs": "^1.0.3",
+    "angular": "^1.6.4",
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
+    "angular-jwt": "^0.1.9",
+    "angular-lock": "^2.0.2",
+    "angular-material": "^1.1.4",
+    "angular-messages": "^1.6.4",
+    "angular-storage": "0.0.15",
+    "auth0-angular": "^4.2.7",
+    "auth0-js": "^8.6.1",
+    "auth0-lock": "^9.2.2"
+  }
+}

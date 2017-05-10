@@ -5,12 +5,14 @@
 
 angular
   .module('authApp', ['auth0', 'angular-storage', 'angular-jwt', 'ngMaterial', 'ui.router'])
-  .config(function ($provide, authProvider, $urlRouterProvider, $stateProvider, $httpProvider, jwtInterceptorProvider) {
+  .config(function ($provide, authProvider, $urlRouterProvider, $stateProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
 
     authProvider.init({
-      domain: 'learning-angularjs.auth0.com',
-      clientID: 'Ber6lzFtBZnSg1qRUEddlteA4Esi8dWD'
+      domain: 'YOUR_AUTH0_DOMAIN',
+      clientID: 'YOUR_AUTH0_CLIENT_ID'
     });
+
+    jwtInterceptorProvider.tokenGetter = store => store.get('id_token');
 
     $urlRouterProvider.otherwise('/home');
 
@@ -23,5 +25,11 @@ angular
         url: '/profile',
         templateUrl: 'components/profile/profile.tpl.html',
         controller: 'profileController as user'
-      })
+      });
+
+      jwtOptionsProvider.config({
+      whiteListedDomains: ['localhost']
+    });
+
+    $httpProvider.interceptors.push('jwtInterceptor');
   });

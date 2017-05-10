@@ -9,17 +9,17 @@ const cors = require('cors');
 app.use(cors());
 
 const authCheck = jwt({
-  secret: new Buffer('Ssti1K4fYBtFVjAJjl3ceuFuCcCJUkooMHfN7-Cs6OxVXLqryZgsSn9DdKrfqc8F', 'base64'),
-  audience: 'Ber6lzFtBZnSg1qRUEddlteA4Esi8dWD',
+  secret: new Buffer('YOUR_AUTH0_SECRET', 'base64'),
+  audience: 'YOUR_AUTH0_CLIENT_ID'
 });
 
-app.get('/api/public', (req, res, next) => {
-  res.json({message: "Hello from a public endpoint! You don't need to be authenticated to see this"});
+app.get('/api/public', function(req, res) {
+  res.json({ message: "Hello from a public endpoint! You don't need to be authenticated to see this." });
 });
 
-app.get('/api/private', authCheck, (req, res, next) => {
-  res.json({message: "Hello from a private endpoint! You DO need to be authenticated to see this"});
+app.get('/api/private', authCheck, function(req, res) {
+  res.json({ message: "Hello from a private endpoint! You DO need to be authenticated to see this." });
 });
 
 app.listen(3001);
-console.log('Listening on local host 3001')
+console.log('Listening on http://localhost:3001');

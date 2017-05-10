@@ -9,8 +9,8 @@ const cors = require('cors');
 
 app.use(cors());
 
-const YOUR_AUTH0_DOMAIN = "learning-angularjs";
-const YOUR_AUTH0_API_AUDIENCE = "Ber6lzFtBZnSg1qRUEddlteA4Esi8dWD";
+const YOUR_AUTH0_DOMAIN = "";
+const YOUR_AUTH0_API_AUDIENCE = "";
 const authCheck = jwt({
   secret: jwks.expressJwtSecret({
     cache: true,

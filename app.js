@@ -9,7 +9,7 @@ angular
 
     authProvider.init({
       domain: 'YOUR_AUTH0_DOMAIN',
-      clientID: 'YOUR_AUTH0_CLIENT_ID'
+      clientID: 'YOUR_AUTH0_CLIENTE_ID'
     });
 
     jwtInterceptorProvider.tokenGetter = store => store.get('id_token');
@@ -32,8 +32,8 @@ angular
     });
 
     $httpProvider.interceptors.push('jwtInterceptor');
-  }).run(function ($rootScope, auth, store, jwtHelper, $location) {
-  $rootScope.on('$locationChangeStart', () => {
+  }).run(function ($rootScope, $state, auth, store, jwtHelper, $location) {
+  $rootScope.$on('$locationChangeStart', () => {
     const token = store.get('id_token');
 
     if (token && !jwtHelper.isTokenExpired(token) && !auth.isAuthenticated) auth.authenticate(store.get('profile'), token);

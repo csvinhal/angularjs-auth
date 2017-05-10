@@ -4,14 +4,25 @@
 const express = require('express');
 const app = express();
 const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 const cors = require('cors');
 
 app.use(cors());
 
+const YOUR_AUTH0_DOMAIN = "learning-angularjs";
+const YOUR_AUTH0_API_AUDIENCE = "Ber6lzFtBZnSg1qRUEddlteA4Esi8dWD";
 const authCheck = jwt({
-  secret: new Buffer('YOUR_AUTH0_SECRET', 'base64'),
-  audience: 'YOUR_AUTH0_CLIENT_ID'
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${YOUR_AUTH0_DOMAIN}.auth0.com/.well-known/jwks.json`
+  }),
+  audience: `${YOUR_AUTH0_API_AUDIENCE}`,
+  issuer: `https://${YOUR_AUTH0_DOMAIN}.auth0.com/`,
+  algorithms: ['RS256']
 });
+
 
 app.get('/api/public', function(req, res) {
   res.json({ message: "Hello from a public endpoint! You don't need to be authenticated to see this." });

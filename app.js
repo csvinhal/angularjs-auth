@@ -27,9 +27,16 @@ angular
         controller: 'profileController as user'
       });
 
-      jwtOptionsProvider.config({
+    jwtOptionsProvider.config({
       whiteListedDomains: ['localhost']
     });
 
     $httpProvider.interceptors.push('jwtInterceptor');
+  }).run(function ($rootScope, auth, store, jwtHelper, $location) {
+  $rootScope.on('$locationChangeStart', () => {
+    const token = store.get('id_token');
+
+    if (token && !jwtHelper.isTokenExpired(token) && !auth.isAuthenticated) auth.authenticate(store.get('profile'), token);
+    else $location.path('/home');
   });
+});
